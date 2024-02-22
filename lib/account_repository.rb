@@ -51,10 +51,17 @@ class AccountRepository
     sql_params = [id]
 
     DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
   end
 
-  # def update(account)
+  def update(account)
+    sql = 'UPDATE accounts SET email = $1, username = $2 WHERE id = $3;'
+    sql_params = [account.email, account.username, account.id]
 
-  # end
+    DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
+  end
 
 end

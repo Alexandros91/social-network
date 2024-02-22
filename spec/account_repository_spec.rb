@@ -97,4 +97,33 @@ RSpec.describe AccountRepository do
       expect(accounts.length).to eq 0
     end
   end
+
+  describe '#update' do
+    it 'updates the account with id 1' do
+      repo = AccountRepository.new
+      account_to_update = repo.find(1)
+
+      account_to_update.email = 'fake_email@test.com'
+      account_to_update.username = 'user_fake_test'
+      repo.update(account_to_update)
+      updated_account = repo.find(1)
+
+      expect(updated_account.id).to eq 1
+      expect(updated_account.email).to eq 'fake_email@test.com'
+      expect(updated_account.username).to eq 'user_fake_test'
+    end
+
+    it 'updates only the username of the account with id 2' do
+      repo = AccountRepository.new
+      account_to_update = repo.find(2)
+
+      account_to_update.username = 'user_fake_test'
+      repo.update(account_to_update)
+      updated_account = repo.find(2)
+
+      expect(updated_account.id).to eq 2
+      expect(updated_account.email).to eq 'second_email@test.com'
+      expect(updated_account.username).to eq 'user_fake_test'
+    end
+  end
 end
