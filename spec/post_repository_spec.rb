@@ -44,4 +44,30 @@ RSpec.describe PostRepository do
       expect(posts[3].account_id).to eq 1
     end
   end
+
+  describe '#find' do
+    it 'returns the post with id 1' do
+      repo = PostRepository.new
+
+      post = repo.find(1)
+
+      expect(post.id).to eq 1
+      expect(post.title).to eq 'First test title'
+      expect(post.content).to eq 'First test content'
+      expect(post.views).to eq 30
+      expect(post.account_id).to eq 1
+    end
+
+    it 'returns the post with id 3' do
+      repo = PostRepository.new
+
+      post = repo.find(3)
+
+      expect(post.id).to eq 3
+      expect(post.title).to eq 'Third test title'
+      expect(post.content).to eq 'Third test content'
+      expect(post.views).to eq 19
+      expect(post.account_id).to eq 2
+    end
+  end
 end
