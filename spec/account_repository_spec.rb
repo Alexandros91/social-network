@@ -28,4 +28,26 @@ RSpec.describe AccountRepository do
       expect(accounts[1].username).to eq 'user_2_test'
     end
   end
+
+  describe '#find' do
+    it 'returns the account with id 1' do
+      repo = AccountRepository.new
+
+      account = repo.find(1)
+
+      expect(account.id).to eq 1
+      expect(account.email).to eq 'first_email@test.com'
+      expect(account.username).to eq 'user_1_test' 
+    end
+
+    it 'returns the account with id 2' do
+      repo = AccountRepository.new
+
+      account = repo.find(2)
+
+      expect(account.id).to eq 2
+      expect(account.email).to eq 'second_email@test.com'
+      expect(account.username).to eq 'user_2_test' 
+    end
+  end
 end

@@ -2,8 +2,6 @@ require_relative './account'
 
 class AccountRepository
 
-  # Selecting all records
-  # No arguments
   def all
     sql = 'SELECT id, email, username FROM accounts;'
     
@@ -23,29 +21,19 @@ class AccountRepository
     return accounts
   end
 
-  # # Gets a single record by its ID
-  # # One argument: the id (number)
-  # def find(id)
-  #   # Executes the SQL query:
-  #   # SELECT id, email, username FROM accounts WHERE id = $1;
+  def find(id)
+    sql = 'SELECT id, email, username FROM accounts WHERE id = $1;'
+    sql_params = [id]
 
-  #   # Returns a single account object.
-  # end
+    result_set = DatabaseConnection.exec_params(sql, sql_params)
 
-  # # Add more methods below for each operation you'd like to implement.
+    record = result_set[0]
+      
+    account = Account.new
+    account.id = record['id'].to_i
+    account.email = record['email']
+    account.username = record['username']
 
-  #   # Inserts a new account record
-  #   # Takes an account object as an argument
-  # def create(account)
-  #   # Executes the SQL query:
-  #   # INSERT INTO accounts (email, username) VALUES ($1, $2);
-
-  #   # Returns nothing (only creates the account record)
-  # end
-
-  # def update(account)
-  # end
-
-  # def delete(account)
-  # end
+    return account
+  end
 end
