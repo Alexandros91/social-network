@@ -68,4 +68,33 @@ RSpec.describe AccountRepository do
       expect(accounts.last.username).to eq 'user_3_test'
     end
   end
+
+  describe '#delete' do
+    it 'deletes the account with id 1' do
+      repo = AccountRepository.new
+
+      id_to_delete = 1
+      repo.delete(id_to_delete)
+
+      accounts = repo.all
+
+      expect(accounts.length).to eq 1
+      expect(accounts.first.id).to eq 2
+      expect(accounts.first.email).to eq 'second_email@test.com'
+      expect(accounts.first.username).to eq 'user_2_test'
+    end
+
+    it 'deletes both accounts' do
+      repo = AccountRepository.new
+
+      id_1 = 1
+      id_2 = 2
+
+      repo.delete(id_1)
+      repo.delete(id_2)
+
+      accounts = repo.all
+      expect(accounts.length).to eq 0
+    end
+  end
 end
