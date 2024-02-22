@@ -70,4 +70,28 @@ RSpec.describe PostRepository do
       expect(post.account_id).to eq 2
     end
   end
+
+  describe '#create' do
+    it 'adds a post to the posts table' do
+      repo = PostRepository.new
+
+      new_post = Post.new
+      new_post.id = 5
+      new_post.title = 'Fifth test title'
+      new_post.content = 'Fifth test content'
+      new_post.views = 4
+      new_post.account_id = 1
+
+      repo.create(new_post)
+      posts = repo.all
+      last_post = posts.last
+
+      expect(posts.length).to eq 5
+      expect(last_post.id).to eq 5
+      expect(last_post.title).to eq 'Fifth test title'
+      expect(last_post.content).to eq 'Fifth test content'
+      expect(last_post.views).to eq 4
+      expect(last_post.account_id).to eq 1
+    end
+  end
 end
