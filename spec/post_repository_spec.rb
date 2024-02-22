@@ -125,4 +125,44 @@ RSpec.describe PostRepository do
       expect(posts.length).to eq 0
     end
   end
+
+  describe '#update' do
+    it 'updates the post with id 1' do
+      repo = PostRepository.new
+    
+      post_to_update = repo.find(1)
+      post_to_update.title = 'Fake test title'
+      post_to_update.content = 'Fake test content'
+      post_to_update.views = 0
+      post_to_update.account_id = 2
+
+      repo.update(post_to_update)
+
+      updated_post = repo.find(1)
+
+      expect(updated_post.id).to eq 1
+      expect(updated_post.title).to eq 'Fake test title'
+      expect(updated_post.content).to eq 'Fake test content'
+      expect(updated_post.views).to eq 0
+      expect(updated_post.account_id).to eq 2
+    end
+
+    it 'updates only the content and views ofthe post with id 1' do
+      repo = PostRepository.new
+    
+      post_to_update = repo.find(1)
+      post_to_update.content = 'Fake test content'
+      post_to_update.views = 0
+
+      repo.update(post_to_update)
+
+      updated_post = repo.find(1)
+
+      expect(updated_post.id).to eq 1
+      expect(updated_post.title).to eq 'First test title'
+      expect(updated_post.content).to eq 'Fake test content'
+      expect(updated_post.views).to eq 0
+      expect(updated_post.account_id).to eq 1
+    end
+  end
 end

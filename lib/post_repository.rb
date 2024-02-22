@@ -60,4 +60,13 @@ class PostRepository
 
     return nil
   end
+
+  def update(post)
+    sql = 'UPDATE posts SET title = $1, content = $2, views = $3, account_id = $4;'
+    sql_params = [post.title, post.content, post.views, post.account_id]
+
+    DatabaseConnection.exec_params(sql, sql_params)
+
+    return nil
+  end
 end
