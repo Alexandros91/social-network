@@ -55,17 +55,18 @@ RSpec.describe AccountRepository do
     it 'adds a new account to the accounts table' do
       repo = AccountRepository.new
       
-      account = Account.new
-      account.email = 'third_email@test.com'
-      account.username = 'user_3_test'
+      new_account = Account.new
+      new_account.email = 'third_email@test.com'
+      new_account.username = 'user_3_test'
       
-      repo.create(account)
+      repo.create(new_account)
       accounts = repo.all
+      last_account = accounts.last
 
       expect(accounts.length).to eq 3
-      expect(accounts.last.id).to eq 3
-      expect(accounts.last.email).to eq 'third_email@test.com'
-      expect(accounts.last.username).to eq 'user_3_test'
+      expect(last_account.id).to eq 3
+      expect(last_account.email).to eq 'third_email@test.com'
+      expect(last_account.username).to eq 'user_3_test'
     end
   end
 

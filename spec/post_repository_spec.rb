@@ -94,4 +94,35 @@ RSpec.describe PostRepository do
       expect(last_post.account_id).to eq 1
     end
   end
+
+  describe '#delete' do
+    it 'deletes the post with id 1 from the posts table' do
+      repo = PostRepository.new
+
+      id_to_delete = 1
+      repo.delete(id_to_delete)
+
+      posts = repo.all
+      first_post = posts.first
+
+      expect(posts.length).to eq 3
+      expect(first_post.id).to eq 2
+      expect(first_post.title).to eq 'Second test title'
+      expect(first_post.content).to eq 'Second test content'
+      expect(first_post.views).to eq 34
+      expect(first_post.account_id).to eq 2
+    end
+
+    it 'deletes all posts from the posts table' do
+      repo = PostRepository.new
+      
+      repo.delete(1)
+      repo.delete(2)
+      repo.delete(3)
+      repo.delete(4)
+
+      posts = repo.all
+      expect(posts.length).to eq 0
+    end
+  end
 end
