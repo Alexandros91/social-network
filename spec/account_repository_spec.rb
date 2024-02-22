@@ -50,4 +50,22 @@ RSpec.describe AccountRepository do
       expect(account.username).to eq 'user_2_test' 
     end
   end
+
+  describe '#create' do
+    it 'adds a new account to the accounts table' do
+      repo = AccountRepository.new
+      
+      account = Account.new
+      account.email = 'third_email@test.com'
+      account.username = 'user_3_test'
+      
+      repo.create(account)
+      accounts = repo.all
+
+      expect(accounts.length).to eq 3
+      expect(accounts.last.id).to eq 3
+      expect(accounts.last.email).to eq 'third_email@test.com'
+      expect(accounts.last.username).to eq 'user_3_test'
+    end
+  end
 end

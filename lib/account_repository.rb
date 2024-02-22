@@ -36,4 +36,19 @@ class AccountRepository
 
     return account
   end
+
+  def create(account)
+    sql = 'INSERT INTO accounts (email, username) VALUES ($1, $2);'
+    sql_params = [account.email, account.username]
+
+    DatabaseConnection.exec_params(sql, sql_params)
+
+    return
+  end
+
+  # def update(account)
+  # end
+
+  # def delete(account)
+  # end
 end
