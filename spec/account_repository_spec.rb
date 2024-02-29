@@ -127,4 +127,17 @@ RSpec.describe AccountRepository do
       expect(updated_account.username).to eq 'user_fake_test'
     end
   end
+
+  describe '#find_with_posts' do
+    it '' do
+      repo = AccountRepository.new
+
+      account = repo.find_with_posts(1)
+
+      expect(account.id).to eq 1
+      expect(account.email).to eq 'first_email@test.com'
+      expect(account.username).to eq 'user_1_test' 
+      expect(account.posts.length).to eq 2
+    end
+  end
 end
